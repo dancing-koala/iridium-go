@@ -34,59 +34,7 @@ func NewInstruction(opcode Opcode) *Instruction {
 }
 
 func opcodeFor(val uint8) Opcode {
-	switch val {
-	case 0:
-		return OPCODE_HLT
-
-	case 1:
-		return OPCODE_LOAD
-
-	case 2:
-		return OPCODE_ADD
-
-	case 3:
-		return OPCODE_SUB
-
-	case 4:
-		return OPCODE_MUL
-
-	case 5:
-		return OPCODE_DIV
-
-	case 6:
-		return OPCODE_JMP
-
-	case 7:
-		return OPCODE_JMPF
-
-	case 8:
-		return OPCODE_JMPB
-
-	case 9:
-		return OPCODE_EQ
-
-	case 10:
-		return OPCODE_NEQ
-
-	case 11:
-		return OPCODE_GT
-
-	case 12:
-		return OPCODE_LT
-
-	case 13:
-		return OPCODE_GTQ
-
-	case 14:
-		return OPCODE_LTQ
-
-	case 15:
-		return OPCODE_JEQ
-
-	case 16:
-		return OPCODE_JNEQ
-
-	default:
-		return OPCODE_IGL
-	}
+	// This not really useful right now but this gives us more flexibility.
+	// This might disappear in the future.
+	return Opcode(val)
 }
