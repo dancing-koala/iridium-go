@@ -12,7 +12,7 @@ A go implementation of the iridium VM following [these blog posts](https://blog.
 
 ✓ [Part 04 - Jumps](https://blog.subnetzero.io/post/building-language-vm-part-04/)
 
-☓ [Part 05 - Equality Checks](https://blog.subnetzero.io/post/building-language-vm-part-05/)
+✓ [Part 05 - Equality Checks](https://blog.subnetzero.io/post/building-language-vm-part-05/)
 
 ☓ [Part 06 - The REPL](https://blog.subnetzero.io/post/building-language-vm-part-06/)
 
