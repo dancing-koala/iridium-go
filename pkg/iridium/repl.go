@@ -1,9 +1,8 @@
-package repl
+package iridium
 
 import (
 	"bufio"
 	"fmt"
-	"github.com/dancing-koala/iridium-go/pkg/iridium"
 	"os"
 	"strings"
 )
@@ -15,13 +14,13 @@ const (
 
 type REPL struct {
 	commandBuffer []string
-	vm            *iridium.VM
+	vm            *VM
 }
 
-func New() *REPL {
+func NewREPL() *REPL {
 	return &REPL{
 		commandBuffer: make([]string, 0, 8),
-		vm:            iridium.New(),
+		vm:            New(),
 	}
 }
 
