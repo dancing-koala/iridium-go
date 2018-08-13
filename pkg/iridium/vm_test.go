@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestNew_initialization(t *testing.T) {
+func TestNewVM(t *testing.T) {
 	vm := New()
 
 	for i := range vm.registers {
@@ -15,7 +15,7 @@ func TestNew_initialization(t *testing.T) {
 
 }
 
-func TestVmRun_HLT(t *testing.T) {
+func TestVmOpcode_HLT(t *testing.T) {
 	vm := New()
 
 	testProgram := []uint8{0, 0, 0, 0}
@@ -28,7 +28,7 @@ func TestVmRun_HLT(t *testing.T) {
 	}
 }
 
-func TestVmRun_IGL(t *testing.T) {
+func TestVmOpcode_IGL(t *testing.T) {
 	vm := New()
 
 	testProgram := []uint8{200, 0, 0, 0}
@@ -41,7 +41,7 @@ func TestVmRun_IGL(t *testing.T) {
 	}
 }
 
-func TestVmRun_LOAD(t *testing.T) {
+func TestVmOpcode_LOAD(t *testing.T) {
 	vm := New()
 	vm.program = []uint8{1, 0, 1, 244}
 	vm.runOnce()
@@ -51,7 +51,7 @@ func TestVmRun_LOAD(t *testing.T) {
 	}
 }
 
-func TestVmRun_ADD(t *testing.T) {
+func TestVmOpcode_ADD(t *testing.T) {
 	vm := New()
 	vm.registers[0] = 8
 	vm.registers[1] = 3
@@ -63,7 +63,7 @@ func TestVmRun_ADD(t *testing.T) {
 	}
 }
 
-func TestVmRun_SUB(t *testing.T) {
+func TestVmOpcode_SUB(t *testing.T) {
 	vm := New()
 	vm.registers[0] = 8
 	vm.registers[1] = 3
@@ -75,7 +75,7 @@ func TestVmRun_SUB(t *testing.T) {
 	}
 }
 
-func TestVmRun_MUL(t *testing.T) {
+func TestVmOpcode_MUL(t *testing.T) {
 	vm := New()
 	vm.registers[0] = 8
 	vm.registers[1] = 3
@@ -87,7 +87,7 @@ func TestVmRun_MUL(t *testing.T) {
 	}
 }
 
-func TestVmRun_DIV(t *testing.T) {
+func TestVmOpcode_DIV(t *testing.T) {
 	vm := New()
 	vm.registers[0] = 8
 	vm.registers[1] = 3
@@ -103,7 +103,7 @@ func TestVmRun_DIV(t *testing.T) {
 	}
 }
 
-func TestVmRun_JMP(t *testing.T) {
+func TestVmOpcode_JMP(t *testing.T) {
 	vm := New()
 	vm.registers[0] = 2
 	vm.program = []uint8{6, 0, 0, 0}
@@ -114,7 +114,7 @@ func TestVmRun_JMP(t *testing.T) {
 	}
 }
 
-func TestVmRun_JMPF(t *testing.T) {
+func TestVmOpcode_JMPF(t *testing.T) {
 	vm := New()
 	vm.program = []uint8{7, 3, 0, 0, 0, 0, 9}
 	vm.runOnce()
@@ -124,7 +124,7 @@ func TestVmRun_JMPF(t *testing.T) {
 	}
 }
 
-func TestVmRun_JMPB(t *testing.T) {
+func TestVmOpcode_JMPB(t *testing.T) {
 	vm := New()
 	vm.program = []uint8{8, 2, 0, 0, 0, 0, 9}
 	vm.runOnce()
@@ -134,7 +134,7 @@ func TestVmRun_JMPB(t *testing.T) {
 	}
 }
 
-func TestVmRun_EQ_True(t *testing.T) {
+func TestVmOpcode_EQ_True(t *testing.T) {
 	vm := New()
 	vm.registers[0] = 4
 	vm.registers[1] = 4
@@ -146,7 +146,7 @@ func TestVmRun_EQ_True(t *testing.T) {
 	}
 }
 
-func TestVmRun_EQ_False(t *testing.T) {
+func TestVmOpcode_EQ_False(t *testing.T) {
 	vm := New()
 	vm.registers[0] = 4
 	vm.registers[1] = 3
@@ -158,7 +158,7 @@ func TestVmRun_EQ_False(t *testing.T) {
 	}
 }
 
-func TestVmRun_NEQ_True(t *testing.T) {
+func TestVmOpcode_NEQ_True(t *testing.T) {
 	vm := New()
 	vm.registers[0] = 4
 	vm.registers[1] = 3
@@ -170,7 +170,7 @@ func TestVmRun_NEQ_True(t *testing.T) {
 	}
 }
 
-func TestVmRun_NEQ_False(t *testing.T) {
+func TestVmOpcode_NEQ_False(t *testing.T) {
 	vm := New()
 	vm.registers[0] = 4
 	vm.registers[1] = 4
@@ -182,7 +182,7 @@ func TestVmRun_NEQ_False(t *testing.T) {
 	}
 }
 
-func TestVmRun_GT_True(t *testing.T) {
+func TestVmOpcode_GT_True(t *testing.T) {
 	vm := New()
 	vm.registers[0] = 4
 	vm.registers[1] = 3
@@ -194,7 +194,7 @@ func TestVmRun_GT_True(t *testing.T) {
 	}
 }
 
-func TestVmRun_GT_False(t *testing.T) {
+func TestVmOpcode_GT_False(t *testing.T) {
 	vm := New()
 	vm.registers[0] = 4
 	vm.registers[1] = 5
@@ -206,7 +206,7 @@ func TestVmRun_GT_False(t *testing.T) {
 	}
 }
 
-func TestVmRun_LT_True(t *testing.T) {
+func TestVmOpcode_LT_True(t *testing.T) {
 	vm := New()
 	vm.registers[0] = 3
 	vm.registers[1] = 4
@@ -218,7 +218,7 @@ func TestVmRun_LT_True(t *testing.T) {
 	}
 }
 
-func TestVmRun_LT_False(t *testing.T) {
+func TestVmOpcode_LT_False(t *testing.T) {
 	vm := New()
 	vm.registers[0] = 4
 	vm.registers[1] = 3
@@ -230,7 +230,7 @@ func TestVmRun_LT_False(t *testing.T) {
 	}
 }
 
-func TestVmRun_GTQ_True(t *testing.T) {
+func TestVmOpcode_GTQ_True(t *testing.T) {
 	vm := New()
 	vm.registers[0] = 2
 	vm.registers[1] = 2
@@ -248,7 +248,7 @@ func TestVmRun_GTQ_True(t *testing.T) {
 	}
 }
 
-func TestVmRun_GTQ_False(t *testing.T) {
+func TestVmOpcode_GTQ_False(t *testing.T) {
 	vm := New()
 	vm.registers[0] = 2
 	vm.registers[1] = 3
@@ -260,7 +260,7 @@ func TestVmRun_GTQ_False(t *testing.T) {
 	}
 }
 
-func TestVmRun_LTQ_True(t *testing.T) {
+func TestVmOpcode_LTQ_True(t *testing.T) {
 	vm := New()
 	vm.registers[0] = 2
 	vm.registers[1] = 2
@@ -278,7 +278,7 @@ func TestVmRun_LTQ_True(t *testing.T) {
 	}
 }
 
-func TestVmRun_LTQ_False(t *testing.T) {
+func TestVmOpcode_LTQ_False(t *testing.T) {
 	vm := New()
 	vm.registers[0] = 2
 	vm.registers[1] = 1
@@ -290,7 +290,7 @@ func TestVmRun_LTQ_False(t *testing.T) {
 	}
 }
 
-func TestVmRun_JEQ_Jump(t *testing.T) {
+func TestVmOpcode_JEQ_Jump(t *testing.T) {
 	vm := New()
 	vm.registers[0] = 4
 	vm.registers[1] = 4
@@ -309,7 +309,7 @@ func TestVmRun_JEQ_Jump(t *testing.T) {
 	}
 }
 
-func TestVmRun_JEQ_NoJump(t *testing.T) {
+func TestVmOpcode_JEQ_NoJump(t *testing.T) {
 	vm := New()
 	vm.registers[0] = 4
 	vm.registers[1] = 5
@@ -328,7 +328,7 @@ func TestVmRun_JEQ_NoJump(t *testing.T) {
 	}
 }
 
-func TestVmRun_JNEQ_Jump(t *testing.T) {
+func TestVmOpcode_JNEQ_Jump(t *testing.T) {
 	vm := New()
 	vm.registers[0] = 4
 	vm.registers[1] = 5
@@ -347,7 +347,7 @@ func TestVmRun_JNEQ_Jump(t *testing.T) {
 	}
 }
 
-func TestVmRun_JNEQ_NoJump(t *testing.T) {
+func TestVmOpcode_JNEQ_NoJump(t *testing.T) {
 	vm := New()
 	vm.registers[0] = 4
 	vm.registers[1] = 4
