@@ -114,6 +114,13 @@ func (vm *VM) executeInstruction() bool {
 		vm.equalFlag = vm.registers[regA] <= vm.registers[regB]
 		vm.next8Bits()
 
+	case OPCODE_JEQ:
+		target := int(vm.next8Bits())
+
+		if vm.equalFlag {
+			vm.pc = int(vm.registers[target])
+		}
+
 	default:
 		fmt.Println("Unrecognized opcode found, terminating")
 		return false
