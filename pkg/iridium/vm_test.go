@@ -113,3 +113,13 @@ func TestVmRun_JMP(t *testing.T) {
 		t.Errorf("Expected <%d>, got <%d>", 2, vm.pc)
 	}
 }
+
+func TestVmRun_JMPF(t *testing.T) {
+	vm := New()
+	vm.program = []uint8{7, 3, 0, 0, 0, 0, 9}
+	vm.runOnce()
+
+	if vm.pc != 5 {
+		t.Errorf("Expected <%d>, got <%d>", 5, vm.pc)
+	}
+}
