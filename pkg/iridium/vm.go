@@ -9,11 +9,11 @@ type VM struct {
 	pc        int
 	program   []uint8
 	remainder uint32
+	equalFlag bool
 }
 
 func New() *VM {
 	return &VM{
-		pc:      0,
 		program: make([]uint8, 0, 2),
 	}
 }
@@ -77,6 +77,12 @@ func (vm *VM) executeInstruction() bool {
 
 	case OPCODE_JMPB:
 		vm.pc -= int(vm.next8Bits())
+
+	case OPCODE_EQ:
+		regA := int(vm.next8Bits())
+		regB := int(vm.next8Bits())
+		vm.equalFlag = vm.registers[regA] == vm.registers[regB]
+		vm.next8Bits()
 
 	default:
 		fmt.Println("Unrecognized opcode found, terminating")

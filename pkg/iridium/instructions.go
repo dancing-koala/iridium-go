@@ -12,6 +12,7 @@ const (
 	OPCODE_JMP  Opcode = 6
 	OPCODE_JMPF Opcode = 7
 	OPCODE_JMPB Opcode = 8
+	OPCODE_EQ   Opcode = 9
 	OPCODE_IGL  Opcode = 255
 )
 
@@ -53,6 +54,9 @@ func opcodeFor(val uint8) Opcode {
 
 	case 8:
 		return OPCODE_JMPB
+
+	case 9:
+		return OPCODE_EQ
 
 	default:
 		return OPCODE_IGL

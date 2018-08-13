@@ -133,3 +133,27 @@ func TestVmRun_JMPB(t *testing.T) {
 		t.Errorf("Expected <%d>, got <%d>", 0, vm.pc)
 	}
 }
+
+func TestVmRun_EQ_True(t *testing.T) {
+	vm := New()
+	vm.registers[0] = 4
+	vm.registers[1] = 4
+	vm.program = []uint8{9, 0, 1, 0}
+	vm.runOnce()
+
+	if !vm.equalFlag {
+		t.Error("equalFlag should be true!")
+	}
+}
+
+func TestVmRun_EQ_False(t *testing.T) {
+	vm := New()
+	vm.registers[0] = 4
+	vm.registers[1] = 3
+	vm.program = []uint8{9, 0, 1, 0}
+	vm.runOnce()
+
+	if vm.equalFlag {
+		t.Error("equalFlag should be false!")
+	}
+}
