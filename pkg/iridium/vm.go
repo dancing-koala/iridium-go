@@ -68,6 +68,10 @@ func (vm *VM) executeInstruction() bool {
 		vm.registers[regTarget] = vm.registers[regA] / vm.registers[regB]
 		vm.remainder = uint32(vm.registers[regA] % vm.registers[regB])
 
+	case OPCODE_JMP:
+		reg := int(vm.next8Bits())
+		vm.pc = int(vm.registers[reg])
+
 	default:
 		fmt.Println("Unrecognized opcode found, terminating")
 		return false

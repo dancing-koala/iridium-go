@@ -102,3 +102,14 @@ func TestVmRun_DIV(t *testing.T) {
 		t.Errorf("Expected remainder <%d>, got <%d>", 2, vm.remainder)
 	}
 }
+
+func TestVmRun_JMP(t *testing.T) {
+	vm := New()
+	vm.registers[0] = 2
+	vm.program = []uint8{6, 0, 0, 0}
+	vm.runOnce()
+
+	if vm.pc != 2 {
+		t.Errorf("Expected <%d>, got <%d>", 2, vm.pc)
+	}
+}
