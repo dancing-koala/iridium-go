@@ -18,22 +18,36 @@ func New() *VM {
 }
 
 func (vm *VM) run() {
-	for {
-		if vm.pc >= len(vm.program) {
-			break
-		}
-
-		switch vm.decodeOpcode() {
-		case OPCODE_HLT:
-			fmt.Println("HLT opcode")
-			return
-
-		default:
-			fmt.Println("Unrecognized opcode found, terminating")
-			return
-
-		}
+	for vm.executeInstruction() {
+		//Intentionally empty
 	}
+}
+
+func (vm *VM) runOnce() {
+	vm.executeInstruction()
+}
+
+func (vm *VM) executeInstruction() bool {
+	if vm.pc >= len(vm.program) {
+		return false
+	}
+
+	switch vm.decodeOpcode() {
+	case OPCODE_HLT:
+		fmt.Println("HLT opcode")
+
+	case OPCODE_LOAD:
+		register := int(vm.next8Bits())
+		number := vm.next16Bits()
+		vm.registers[register] = int32(number)
+
+	default:
+		fmt.Println("Unrecognized opcode found, terminating")
+		return false
+
+	}
+
+	return true
 }
 
 func (vm *VM) decodeOpcode() Opcode {
@@ -42,4 +56,20 @@ func (vm *VM) decodeOpcode() Opcode {
 	vm.pc++
 
 	return opcode
+}
+
+func (vm *VM) next8Bits() uint8 {
+	val := vm.program[vm.pc]
+
+	vm.pc++
+
+	return val
+}
+
+func (vm *VM) next16Bits() uint16 {
+	val := (uint16(vm.program[vm.pc]) << 8) | uint16(vm.program[vm.pc+1])
+
+	vm.pc += 2
+
+	return val
 }

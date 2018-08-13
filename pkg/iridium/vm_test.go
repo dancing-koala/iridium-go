@@ -21,21 +21,32 @@ func TestVmRun_HLT(t *testing.T) {
 	testProgram := []uint8{0, 0, 0, 0}
 	vm.program = testProgram
 
-	vm.run()
+	vm.runOnce()
 
 	if vm.pc != 1 {
 		t.Errorf("expected <%d>, got <%d>", 1, vm.pc)
 	}
 }
+
 func TestVmRun_IGL(t *testing.T) {
 	vm := New()
 
 	testProgram := []uint8{200, 0, 0, 0}
 	vm.program = testProgram
 
-	vm.run()
+	vm.runOnce()
 
 	if vm.pc != 1 {
 		t.Errorf("expected <%d>, got <%d>", 1, vm.pc)
+	}
+}
+
+func TestVmRun_LOAD(t *testing.T) {
+	vm := New()
+	vm.program = []uint8{1, 0, 1, 244}
+	vm.runOnce()
+
+	if vm.registers[0] != 500 {
+		t.Errorf("Expected <%d>, got <%d>", 500, vm.registers[0])
 	}
 }
