@@ -75,6 +75,9 @@ func (vm *VM) executeInstruction() bool {
 	case OPCODE_JMPF:
 		vm.pc += int(vm.next8Bits())
 
+	case OPCODE_JMPB:
+		vm.pc -= int(vm.next8Bits())
+
 	default:
 		fmt.Println("Unrecognized opcode found, terminating")
 		return false
