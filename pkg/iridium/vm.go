@@ -36,6 +36,7 @@ func (vm *VM) executeInstruction() bool {
 	switch vm.decodeOpcode() {
 	case OPCODE_HLT:
 		fmt.Println("HLT opcode")
+		return false
 
 	case OPCODE_LOAD:
 		reg := int(vm.next8Bits())
