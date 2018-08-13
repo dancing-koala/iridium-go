@@ -259,3 +259,33 @@ func TestVmRun_GTQ_False(t *testing.T) {
 		t.Error("equalFlag should be false!")
 	}
 }
+
+func TestVmRun_LTQ_True(t *testing.T) {
+	vm := New()
+	vm.registers[0] = 2
+	vm.registers[1] = 2
+	vm.program = []uint8{14, 0, 1, 0, 14, 0, 1, 0}
+	vm.runOnce()
+
+	if !vm.equalFlag {
+		t.Error("equalFlag should be true!")
+	}
+
+	vm.registers[0] = 1
+
+	if !vm.equalFlag {
+		t.Error("equalFlag should be true!")
+	}
+}
+
+func TestVmRun_LTQ_False(t *testing.T) {
+	vm := New()
+	vm.registers[0] = 2
+	vm.registers[1] = 1
+	vm.program = []uint8{14, 0, 1, 0}
+	vm.runOnce()
+
+	if vm.equalFlag {
+		t.Error("equalFlag should be false!")
+	}
+}
