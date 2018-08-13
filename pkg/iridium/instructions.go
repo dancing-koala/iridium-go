@@ -16,6 +16,7 @@ const (
 	OPCODE_NEQ  Opcode = 10
 	OPCODE_GT   Opcode = 11
 	OPCODE_LT   Opcode = 12
+	OPCODE_GTQ  Opcode = 13
 	OPCODE_IGL  Opcode = 255
 )
 
@@ -69,6 +70,9 @@ func opcodeFor(val uint8) Opcode {
 
 	case 12:
 		return OPCODE_LT
+
+	case 13:
+		return OPCODE_GTQ
 
 	default:
 		return OPCODE_IGL
