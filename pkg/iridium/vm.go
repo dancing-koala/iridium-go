@@ -121,6 +121,13 @@ func (vm *VM) executeInstruction() bool {
 			vm.pc = int(vm.registers[target])
 		}
 
+	case OPCODE_JNEQ:
+		target := int(vm.next8Bits())
+
+		if !vm.equalFlag {
+			vm.pc = int(vm.registers[target])
+		}
+
 	default:
 		fmt.Println("Unrecognized opcode found, terminating")
 		return false

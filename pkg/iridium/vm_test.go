@@ -327,3 +327,41 @@ func TestVmRun_JEQ_NoJump(t *testing.T) {
 		t.Errorf("Expected <%d>, got <%d>", 6, vm.pc)
 	}
 }
+
+func TestVmRun_JNEQ_Jump(t *testing.T) {
+	vm := New()
+	vm.registers[0] = 4
+	vm.registers[1] = 5
+	vm.registers[2] = 8
+	vm.program = []uint8{9, 0, 1, 0, 16, 2, 0, 0, 0, 0}
+	vm.runOnce()
+
+	if vm.equalFlag {
+		t.Error("equalFlag should be false!")
+	}
+
+	vm.runOnce()
+
+	if vm.pc != 8 {
+		t.Errorf("Expected <%d>, got <%d>", 8, vm.pc)
+	}
+}
+
+func TestVmRun_JNEQ_NoJump(t *testing.T) {
+	vm := New()
+	vm.registers[0] = 4
+	vm.registers[1] = 4
+	vm.registers[2] = 8
+	vm.program = []uint8{9, 0, 1, 0, 16, 2, 0, 0, 0, 0}
+	vm.runOnce()
+
+	if !vm.equalFlag {
+		t.Error("equalFlag should be true!")
+	}
+
+	vm.runOnce()
+
+	if vm.pc != 6 {
+		t.Errorf("Expected <%d>, got <%d>", 6, vm.pc)
+	}
+}
