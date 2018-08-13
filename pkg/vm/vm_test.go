@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestNewVM(t *testing.T) {
+func TestNew_initialization(t *testing.T) {
 	testVM := New()
 
 	for i := range testVM.registers {
@@ -13,4 +13,29 @@ func TestNewVM(t *testing.T) {
 		}
 	}
 
+}
+
+func TestVmRun_HLT(t *testing.T) {
+	testVM := New()
+
+	testProgram := []uint8{0, 0, 0, 0}
+	testVM.program = testProgram
+
+	testVM.run()
+
+	if testVM.pc != 1 {
+		t.Errorf("expected <%d>, got <%d>", 1, testVM.pc)
+	}
+}
+func TestVmRun_IGL(t *testing.T) {
+	testVM := New()
+
+	testProgram := []uint8{200, 0, 0, 0}
+	testVM.program = testProgram
+
+	testVM.run()
+
+	if testVM.pc != 1 {
+		t.Errorf("expected <%d>, got <%d>", 1, testVM.pc)
+	}
 }
