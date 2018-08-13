@@ -50,3 +50,15 @@ func TestVmRun_LOAD(t *testing.T) {
 		t.Errorf("Expected <%d>, got <%d>", 500, vm.registers[0])
 	}
 }
+
+func TestVmRun_ADD(t *testing.T) {
+	vm := New()
+	vm.registers[0] = 4
+	vm.registers[1] = 8
+	vm.program = []uint8{2, 0, 1, 2}
+	vm.runOnce()
+
+	if vm.registers[2] != 12 {
+		t.Errorf("Expected <%d>, got <%d>", 12, vm.registers[0])
+	}
+}

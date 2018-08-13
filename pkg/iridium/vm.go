@@ -37,9 +37,15 @@ func (vm *VM) executeInstruction() bool {
 		fmt.Println("HLT opcode")
 
 	case OPCODE_LOAD:
-		register := int(vm.next8Bits())
+		reg := int(vm.next8Bits())
 		number := vm.next16Bits()
-		vm.registers[register] = int32(number)
+		vm.registers[reg] = int32(number)
+
+	case OPCODE_ADD:
+		regA := int(vm.next8Bits())
+		regB := int(vm.next8Bits())
+		regTarget := int(vm.next8Bits())
+		vm.registers[regTarget] = vm.registers[regA] + vm.registers[regB]
 
 	default:
 		fmt.Println("Unrecognized opcode found, terminating")

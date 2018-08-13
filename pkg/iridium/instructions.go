@@ -5,6 +5,7 @@ type Opcode uint8
 const (
 	OPCODE_HLT  Opcode = 0
 	OPCODE_LOAD Opcode = 1
+	OPCODE_ADD  Opcode = 2
 	OPCODE_IGL  Opcode = 255
 )
 
@@ -25,6 +26,9 @@ func opcodeFor(val uint8) Opcode {
 
 	case 1:
 		return OPCODE_LOAD
+
+	case 2:
+		return OPCODE_ADD
 
 	default:
 		return OPCODE_IGL
