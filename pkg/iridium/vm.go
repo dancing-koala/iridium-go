@@ -12,7 +12,7 @@ type VM struct {
 	equalFlag bool
 }
 
-func New() *VM {
+func NewVM() *VM {
 	return &VM{
 		program: make([]uint8, 0, 2),
 	}

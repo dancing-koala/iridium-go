@@ -23,7 +23,7 @@ type REPL struct {
 func NewREPL() *REPL {
 	return &REPL{
 		commandBuffer: make([]string, 0, 8),
-		vm:            New(),
+		vm:            NewVM(),
 	}
 }
 

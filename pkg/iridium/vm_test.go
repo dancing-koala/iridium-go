@@ -5,7 +5,7 @@ import (
 )
 
 func TestNewVM(t *testing.T) {
-	vm := New()
+	vm := NewVM()
 
 	for i := range vm.registers {
 		if vm.registers[i] != 0 {
@@ -16,7 +16,7 @@ func TestNewVM(t *testing.T) {
 }
 
 func TestVmOpcode_HLT(t *testing.T) {
-	vm := New()
+	vm := NewVM()
 
 	testProgram := []uint8{0, 0, 0, 0}
 	vm.program = testProgram
@@ -29,7 +29,7 @@ func TestVmOpcode_HLT(t *testing.T) {
 }
 
 func TestVmOpcode_IGL(t *testing.T) {
-	vm := New()
+	vm := NewVM()
 
 	testProgram := []uint8{200, 0, 0, 0}
 	vm.program = testProgram
@@ -42,7 +42,7 @@ func TestVmOpcode_IGL(t *testing.T) {
 }
 
 func TestVmOpcode_LOAD(t *testing.T) {
-	vm := New()
+	vm := NewVM()
 	vm.program = []uint8{1, 0, 1, 244}
 	vm.runOnce()
 
@@ -52,7 +52,7 @@ func TestVmOpcode_LOAD(t *testing.T) {
 }
 
 func TestVmOpcode_ADD(t *testing.T) {
-	vm := New()
+	vm := NewVM()
 	vm.registers[0] = 8
 	vm.registers[1] = 3
 	vm.program = []uint8{2, 0, 1, 2}
@@ -64,7 +64,7 @@ func TestVmOpcode_ADD(t *testing.T) {
 }
 
 func TestVmOpcode_SUB(t *testing.T) {
-	vm := New()
+	vm := NewVM()
 	vm.registers[0] = 8
 	vm.registers[1] = 3
 	vm.program = []uint8{3, 0, 1, 2}
@@ -76,7 +76,7 @@ func TestVmOpcode_SUB(t *testing.T) {
 }
 
 func TestVmOpcode_MUL(t *testing.T) {
-	vm := New()
+	vm := NewVM()
 	vm.registers[0] = 8
 	vm.registers[1] = 3
 	vm.program = []uint8{4, 0, 1, 2}
@@ -88,7 +88,7 @@ func TestVmOpcode_MUL(t *testing.T) {
 }
 
 func TestVmOpcode_DIV(t *testing.T) {
-	vm := New()
+	vm := NewVM()
 	vm.registers[0] = 8
 	vm.registers[1] = 3
 	vm.program = []uint8{5, 0, 1, 2}
@@ -104,7 +104,7 @@ func TestVmOpcode_DIV(t *testing.T) {
 }
 
 func TestVmOpcode_JMP(t *testing.T) {
-	vm := New()
+	vm := NewVM()
 	vm.registers[0] = 2
 	vm.program = []uint8{6, 0, 0, 0}
 	vm.runOnce()
@@ -115,7 +115,7 @@ func TestVmOpcode_JMP(t *testing.T) {
 }
 
 func TestVmOpcode_JMPF(t *testing.T) {
-	vm := New()
+	vm := NewVM()
 	vm.program = []uint8{7, 3, 0, 0, 0, 0, 9}
 	vm.runOnce()
 
@@ -125,7 +125,7 @@ func TestVmOpcode_JMPF(t *testing.T) {
 }
 
 func TestVmOpcode_JMPB(t *testing.T) {
-	vm := New()
+	vm := NewVM()
 	vm.program = []uint8{8, 2, 0, 0, 0, 0, 9}
 	vm.runOnce()
 
@@ -135,7 +135,7 @@ func TestVmOpcode_JMPB(t *testing.T) {
 }
 
 func TestVmOpcode_EQ_True(t *testing.T) {
-	vm := New()
+	vm := NewVM()
 	vm.registers[0] = 4
 	vm.registers[1] = 4
 	vm.program = []uint8{9, 0, 1, 0}
@@ -147,7 +147,7 @@ func TestVmOpcode_EQ_True(t *testing.T) {
 }
 
 func TestVmOpcode_EQ_False(t *testing.T) {
-	vm := New()
+	vm := NewVM()
 	vm.registers[0] = 4
 	vm.registers[1] = 3
 	vm.program = []uint8{9, 0, 1, 0}
@@ -159,7 +159,7 @@ func TestVmOpcode_EQ_False(t *testing.T) {
 }
 
 func TestVmOpcode_NEQ_True(t *testing.T) {
-	vm := New()
+	vm := NewVM()
 	vm.registers[0] = 4
 	vm.registers[1] = 3
 	vm.program = []uint8{10, 0, 1, 0}
@@ -171,7 +171,7 @@ func TestVmOpcode_NEQ_True(t *testing.T) {
 }
 
 func TestVmOpcode_NEQ_False(t *testing.T) {
-	vm := New()
+	vm := NewVM()
 	vm.registers[0] = 4
 	vm.registers[1] = 4
 	vm.program = []uint8{10, 0, 1, 0}
@@ -183,7 +183,7 @@ func TestVmOpcode_NEQ_False(t *testing.T) {
 }
 
 func TestVmOpcode_GT_True(t *testing.T) {
-	vm := New()
+	vm := NewVM()
 	vm.registers[0] = 4
 	vm.registers[1] = 3
 	vm.program = []uint8{11, 0, 1, 0}
@@ -195,7 +195,7 @@ func TestVmOpcode_GT_True(t *testing.T) {
 }
 
 func TestVmOpcode_GT_False(t *testing.T) {
-	vm := New()
+	vm := NewVM()
 	vm.registers[0] = 4
 	vm.registers[1] = 5
 	vm.program = []uint8{11, 0, 1, 0}
@@ -207,7 +207,7 @@ func TestVmOpcode_GT_False(t *testing.T) {
 }
 
 func TestVmOpcode_LT_True(t *testing.T) {
-	vm := New()
+	vm := NewVM()
 	vm.registers[0] = 3
 	vm.registers[1] = 4
 	vm.program = []uint8{12, 0, 1, 0}
@@ -219,7 +219,7 @@ func TestVmOpcode_LT_True(t *testing.T) {
 }
 
 func TestVmOpcode_LT_False(t *testing.T) {
-	vm := New()
+	vm := NewVM()
 	vm.registers[0] = 4
 	vm.registers[1] = 3
 	vm.program = []uint8{12, 0, 1, 0}
@@ -231,7 +231,7 @@ func TestVmOpcode_LT_False(t *testing.T) {
 }
 
 func TestVmOpcode_GTQ_True(t *testing.T) {
-	vm := New()
+	vm := NewVM()
 	vm.registers[0] = 2
 	vm.registers[1] = 2
 	vm.program = []uint8{13, 0, 1, 0, 13, 0, 1, 0}
@@ -249,7 +249,7 @@ func TestVmOpcode_GTQ_True(t *testing.T) {
 }
 
 func TestVmOpcode_GTQ_False(t *testing.T) {
-	vm := New()
+	vm := NewVM()
 	vm.registers[0] = 2
 	vm.registers[1] = 3
 	vm.program = []uint8{13, 0, 1, 0}
@@ -261,7 +261,7 @@ func TestVmOpcode_GTQ_False(t *testing.T) {
 }
 
 func TestVmOpcode_LTQ_True(t *testing.T) {
-	vm := New()
+	vm := NewVM()
 	vm.registers[0] = 2
 	vm.registers[1] = 2
 	vm.program = []uint8{14, 0, 1, 0, 14, 0, 1, 0}
@@ -279,7 +279,7 @@ func TestVmOpcode_LTQ_True(t *testing.T) {
 }
 
 func TestVmOpcode_LTQ_False(t *testing.T) {
-	vm := New()
+	vm := NewVM()
 	vm.registers[0] = 2
 	vm.registers[1] = 1
 	vm.program = []uint8{14, 0, 1, 0}
@@ -291,7 +291,7 @@ func TestVmOpcode_LTQ_False(t *testing.T) {
 }
 
 func TestVmOpcode_JEQ_Jump(t *testing.T) {
-	vm := New()
+	vm := NewVM()
 	vm.registers[0] = 4
 	vm.registers[1] = 4
 	vm.registers[2] = 8
@@ -310,7 +310,7 @@ func TestVmOpcode_JEQ_Jump(t *testing.T) {
 }
 
 func TestVmOpcode_JEQ_NoJump(t *testing.T) {
-	vm := New()
+	vm := NewVM()
 	vm.registers[0] = 4
 	vm.registers[1] = 5
 	vm.registers[2] = 8
@@ -329,7 +329,7 @@ func TestVmOpcode_JEQ_NoJump(t *testing.T) {
 }
 
 func TestVmOpcode_JNEQ_Jump(t *testing.T) {
-	vm := New()
+	vm := NewVM()
 	vm.registers[0] = 4
 	vm.registers[1] = 5
 	vm.registers[2] = 8
@@ -348,7 +348,7 @@ func TestVmOpcode_JNEQ_Jump(t *testing.T) {
 }
 
 func TestVmOpcode_JNEQ_NoJump(t *testing.T) {
-	vm := New()
+	vm := NewVM()
 	vm.registers[0] = 4
 	vm.registers[1] = 4
 	vm.registers[2] = 8
