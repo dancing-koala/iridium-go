@@ -10,6 +10,7 @@ import (
 const (
 	CMD_QUIT    = ".quit"
 	CMD_HISTORY = ".history"
+	CMD_PROGRAM = ".program"
 )
 
 type REPL struct {
@@ -56,6 +57,15 @@ func (repl *REPL) Run() {
 			for _, val := range repl.commandBuffer {
 				fmt.Println(val)
 			}
+
+		case CMD_PROGRAM:
+			fmt.Println("Listing instructions currently in VM's program slice:")
+
+			for _, val := range repl.vm.program {
+				fmt.Println(val)
+			}
+
+			fmt.Println("End of program listing")
 
 		default:
 			fmt.Println("Invalid input!")
