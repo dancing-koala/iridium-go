@@ -1,6 +1,6 @@
 # Iridium VM - Go implementation
 
-A go implementation of the iridium VM following [these instructions](https://blog.subnetzero.io/post/building-language-vm-part-00/).
+A go implementation of the iridium VM following [these blog posts](https://blog.subnetzero.io/post/building-language-vm-part-00/).
 
 ## Progress
 
@@ -10,7 +10,7 @@ A go implementation of the iridium VM following [these instructions](https://blo
 
 ✓ [Part 03 - More Basic Opcodes](https://blog.subnetzero.io/post/building-language-vm-part-03/)
 
-☓ [Part 04 - Jumps](https://blog.subnetzero.io/post/building-language-vm-part-04/)
+✓ [Part 04 - Jumps](https://blog.subnetzero.io/post/building-language-vm-part-04/)
 
 ☓ [Part 05 - Equality Checks](https://blog.subnetzero.io/post/building-language-vm-part-05/)
 
