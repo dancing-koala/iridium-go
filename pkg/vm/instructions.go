@@ -16,3 +16,12 @@ func NewInstruction(opcode Opcode) *Instruction {
 		opcode: opcode,
 	}
 }
+
+func opcodeFor(val uint8) Opcode {
+	switch val {
+	case 0:
+		return OPCODE_HLT
+	default:
+		return OPCODE_IGL
+	}
+}
