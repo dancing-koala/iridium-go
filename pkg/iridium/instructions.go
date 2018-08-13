@@ -1,4 +1,4 @@
-package vm
+package iridium
 
 type Opcode uint8
 

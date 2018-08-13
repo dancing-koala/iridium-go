@@ -1,4 +1,4 @@
-package vm
+package iridium
 
 import (
 	"fmt"
@@ -17,13 +17,13 @@ func New() *VM {
 	}
 }
 
-func (self *VM) run() {
+func (vm *VM) run() {
 	for {
-		if self.pc >= len(self.program) {
+		if vm.pc >= len(vm.program) {
 			break
 		}
 
-		switch self.decodeOpcode() {
+		switch vm.decodeOpcode() {
 		case OPCODE_HLT:
 			fmt.Println("HLT opcode")
 			return
@@ -36,10 +36,10 @@ func (self *VM) run() {
 	}
 }
 
-func (self *VM) decodeOpcode() Opcode {
-	opcode := opcodeFor(self.program[self.pc])
+func (vm *VM) decodeOpcode() Opcode {
+	opcode := opcodeFor(vm.program[vm.pc])
 
-	self.pc++
+	vm.pc++
 
 	return opcode
 }
