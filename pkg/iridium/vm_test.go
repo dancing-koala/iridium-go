@@ -53,24 +53,36 @@ func TestVmRun_LOAD(t *testing.T) {
 
 func TestVmRun_ADD(t *testing.T) {
 	vm := New()
-	vm.registers[0] = 4
-	vm.registers[1] = 8
+	vm.registers[0] = 8
+	vm.registers[1] = 3
 	vm.program = []uint8{2, 0, 1, 2}
 	vm.runOnce()
 
-	if vm.registers[2] != 12 {
-		t.Errorf("Expected <%d>, got <%d>", 12, vm.registers[0])
+	if vm.registers[2] != 11 {
+		t.Errorf("Expected <%d>, got <%d>", 12, vm.registers[2])
 	}
 }
 
 func TestVmRun_SUB(t *testing.T) {
 	vm := New()
-	vm.registers[0] = 4
-	vm.registers[1] = 8
+	vm.registers[0] = 8
+	vm.registers[1] = 3
 	vm.program = []uint8{3, 0, 1, 2}
 	vm.runOnce()
 
-	if vm.registers[2] != -4 {
-		t.Errorf("Expected <%d>, got <%d>", 12, vm.registers[0])
+	if vm.registers[2] != 5 {
+		t.Errorf("Expected <%d>, got <%d>", 12, vm.registers[2])
+	}
+}
+
+func TestVmRun_MUL(t *testing.T) {
+	vm := New()
+	vm.registers[0] = 8
+	vm.registers[1] = 3
+	vm.program = []uint8{4, 0, 1, 2}
+	vm.runOnce()
+
+	if vm.registers[2] != 24 {
+		t.Errorf("Expected <%d>, got <%d>", 12, vm.registers[2])
 	}
 }

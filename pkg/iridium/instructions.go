@@ -7,6 +7,7 @@ const (
 	OPCODE_LOAD Opcode = 1
 	OPCODE_ADD  Opcode = 2
 	OPCODE_SUB  Opcode = 3
+	OPCODE_MUL  Opcode = 4
 	OPCODE_IGL  Opcode = 255
 )
 
@@ -33,6 +34,9 @@ func opcodeFor(val uint8) Opcode {
 
 	case 3:
 		return OPCODE_SUB
+
+	case 4:
+		return OPCODE_MUL
 
 	default:
 		return OPCODE_IGL

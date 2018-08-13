@@ -53,6 +53,12 @@ func (vm *VM) executeInstruction() bool {
 		regTarget := int(vm.next8Bits())
 		vm.registers[regTarget] = vm.registers[regA] - vm.registers[regB]
 
+	case OPCODE_MUL:
+		regA := int(vm.next8Bits())
+		regB := int(vm.next8Bits())
+		regTarget := int(vm.next8Bits())
+		vm.registers[regTarget] = vm.registers[regA] * vm.registers[regB]
+
 	default:
 		fmt.Println("Unrecognized opcode found, terminating")
 		return false
