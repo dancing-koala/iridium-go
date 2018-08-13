@@ -1,10 +1,10 @@
 package main
 
 import (
-	"fmt"
-	"github.com/dancing-koala/iridium-go/pkg/iridium"
+	"github.com/dancing-koala/iridium-go/pkg/repl"
 )
 
 func main() {
-	fmt.Printf("%+v\n", iridium.New())
+	interpreter := repl.New()
+	interpreter.Run()
 }
