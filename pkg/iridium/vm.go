@@ -160,3 +160,9 @@ func (vm *VM) next16Bits() uint16 {
 
 	return val
 }
+
+func (vm *VM) addToProgram(values ...uint8) {
+	for _, val := range values {
+		vm.program = append(vm.program, val)
+	}
+}

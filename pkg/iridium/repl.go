@@ -4,13 +4,15 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 )
 
 const (
-	CMD_QUIT    = ".quit"
-	CMD_HISTORY = ".history"
-	CMD_PROGRAM = ".program"
+	CMD_QUIT      = ".quit"
+	CMD_HISTORY   = ".history"
+	CMD_PROGRAM   = ".program"
+	CMD_REGISTERS = ".registers"
 )
 
 type REPL struct {
@@ -67,8 +69,38 @@ func (repl *REPL) Run() {
 
 			fmt.Println("End of program listing")
 
+		case CMD_REGISTERS:
+			fmt.Println("Listing registers and all contents:")
+			fmt.Println(repl.vm.registers)
+			fmt.Println("End of registers listing")
+
 		default:
-			fmt.Println("Invalid input!")
+			values, err := parseHex(input)
+
+			if err != nil {
+				fmt.Println("Could not parse input, please enter 4 groups of 2 characters or a command.")
+			} else {
+				repl.vm.addToProgram(values...)
+				repl.vm.runOnce()
+			}
 		}
 	}
+}
+
+func parseHex(hex string) ([]uint8, error) {
+
+	parts := strings.Split(hex, " ")
+	result := make([]uint8, len(parts))
+
+	for i := range parts {
+		value, err := strconv.ParseUint(parts[i], 16, 8)
+
+		if err != nil {
+			return nil, err
+		}
+
+		result[i] = uint8(value)
+	}
+
+	return result, nil
 }
