@@ -86,3 +86,19 @@ func TestVmRun_MUL(t *testing.T) {
 		t.Errorf("Expected <%d>, got <%d>", 12, vm.registers[2])
 	}
 }
+
+func TestVmRun_DIV(t *testing.T) {
+	vm := New()
+	vm.registers[0] = 8
+	vm.registers[1] = 3
+	vm.program = []uint8{5, 0, 1, 2}
+	vm.runOnce()
+
+	if vm.registers[2] != 2 {
+		t.Errorf("Expected <%d>, got <%d>", 2, vm.registers[2])
+	}
+
+	if vm.remainder != 2 {
+		t.Errorf("Expected remainder <%d>, got <%d>", 2, vm.remainder)
+	}
+}

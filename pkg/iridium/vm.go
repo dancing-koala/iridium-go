@@ -8,6 +8,7 @@ type VM struct {
 	registers [32]int32
 	pc        int
 	program   []uint8
+	remainder uint32
 }
 
 func New() *VM {
@@ -58,6 +59,13 @@ func (vm *VM) executeInstruction() bool {
 		regB := int(vm.next8Bits())
 		regTarget := int(vm.next8Bits())
 		vm.registers[regTarget] = vm.registers[regA] * vm.registers[regB]
+
+	case OPCODE_DIV:
+		regA := int(vm.next8Bits())
+		regB := int(vm.next8Bits())
+		regTarget := int(vm.next8Bits())
+		vm.registers[regTarget] = vm.registers[regA] / vm.registers[regB]
+		vm.remainder = uint32(vm.registers[regA] % vm.registers[regB])
 
 	default:
 		fmt.Println("Unrecognized opcode found, terminating")
