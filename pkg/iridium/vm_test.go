@@ -181,3 +181,27 @@ func TestVmRun_NEQ_False(t *testing.T) {
 		t.Error("equalFlag should be false!")
 	}
 }
+
+func TestVmRun_GT_True(t *testing.T) {
+	vm := New()
+	vm.registers[0] = 4
+	vm.registers[1] = 3
+	vm.program = []uint8{11, 0, 1, 0}
+	vm.runOnce()
+
+	if !vm.equalFlag {
+		t.Error("equalFlag should be true!")
+	}
+}
+
+func TestVmRun_GT_False(t *testing.T) {
+	vm := New()
+	vm.registers[0] = 4
+	vm.registers[1] = 5
+	vm.program = []uint8{11, 0, 1, 0}
+	vm.runOnce()
+
+	if vm.equalFlag {
+		t.Error("equalFlag should be false!")
+	}
+}

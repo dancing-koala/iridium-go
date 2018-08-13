@@ -90,6 +90,12 @@ func (vm *VM) executeInstruction() bool {
 		vm.equalFlag = vm.registers[regA] != vm.registers[regB]
 		vm.next8Bits()
 
+	case OPCODE_GT:
+		regA := int(vm.next8Bits())
+		regB := int(vm.next8Bits())
+		vm.equalFlag = vm.registers[regA] > vm.registers[regB]
+		vm.next8Bits()
+
 	default:
 		fmt.Println("Unrecognized opcode found, terminating")
 		return false
