@@ -4,6 +4,7 @@ import (
 	"fmt"
 )
 
+// VM is a structure representing an Iridium VM instance
 type VM struct {
 	registers [32]int32
 	pc        int
@@ -12,6 +13,7 @@ type VM struct {
 	equalFlag bool
 }
 
+// NewVM creates a new Iridium VM instance
 func NewVM() *VM {
 	return &VM{
 		program: make([]uint8, 0, 2),

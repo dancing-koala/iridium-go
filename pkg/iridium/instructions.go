@@ -1,5 +1,6 @@
 package iridium
 
+// Opcode is the type representing an OPCODE of the Iridium VM
 type Opcode uint8
 
 const (
@@ -23,10 +24,12 @@ const (
 	opcodeIGL  Opcode = 255
 )
 
+// Instruction is a structure representing an instruction of the Iridium VM
 type Instruction struct {
 	opcode Opcode
 }
 
+// NewInstruction creates an instruction with the given Opcode
 func NewInstruction(opcode Opcode) *Instruction {
 	return &Instruction{
 		opcode: opcode,

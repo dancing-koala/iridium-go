@@ -15,11 +15,13 @@ const (
 	cmdRegisters = ".registers"
 )
 
+// REPL is a structure representing an REPL instance
 type REPL struct {
 	commandBuffer []string
 	vm            *VM
 }
 
+// NewREPL creates a new REPL instance
 func NewREPL() *REPL {
 	return &REPL{
 		commandBuffer: make([]string, 0, 8),
@@ -27,6 +29,7 @@ func NewREPL() *REPL {
 	}
 }
 
+// Run is the main loop of the REPL
 func (repl *REPL) Run() {
 	fmt.Println("Welcome to Iridium! Let's be productive!")
 
