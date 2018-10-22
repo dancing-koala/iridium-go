@@ -34,94 +34,94 @@ func (vm *VM) executeInstruction() bool {
 	}
 
 	switch vm.decodeOpcode() {
-	case OPCODE_HLT:
+	case opcodeHLT:
 		fmt.Println("HLT opcode")
 		return false
 
-	case OPCODE_LOAD:
+	case opcodeLOAD:
 		reg := int(vm.next8Bits())
 		number := vm.next16Bits()
 		vm.registers[reg] = int32(number)
 
-	case OPCODE_ADD:
+	case opcodeADD:
 		regA := int(vm.next8Bits())
 		regB := int(vm.next8Bits())
 		regTarget := int(vm.next8Bits())
 		vm.registers[regTarget] = vm.registers[regA] + vm.registers[regB]
 
-	case OPCODE_SUB:
+	case opcodeSUB:
 		regA := int(vm.next8Bits())
 		regB := int(vm.next8Bits())
 		regTarget := int(vm.next8Bits())
 		vm.registers[regTarget] = vm.registers[regA] - vm.registers[regB]
 
-	case OPCODE_MUL:
+	case opcodeMUL:
 		regA := int(vm.next8Bits())
 		regB := int(vm.next8Bits())
 		regTarget := int(vm.next8Bits())
 		vm.registers[regTarget] = vm.registers[regA] * vm.registers[regB]
 
-	case OPCODE_DIV:
+	case opcodeDIV:
 		regA := int(vm.next8Bits())
 		regB := int(vm.next8Bits())
 		regTarget := int(vm.next8Bits())
 		vm.registers[regTarget] = vm.registers[regA] / vm.registers[regB]
 		vm.remainder = uint32(vm.registers[regA] % vm.registers[regB])
 
-	case OPCODE_JMP:
+	case opcodeJMP:
 		reg := int(vm.next8Bits())
 		vm.pc = int(vm.registers[reg])
 
-	case OPCODE_JMPF:
+	case opcodeJMPF:
 		vm.pc += int(vm.next8Bits())
 
-	case OPCODE_JMPB:
+	case opcodeJMPB:
 		vm.pc -= int(vm.next8Bits())
 
-	case OPCODE_EQ:
+	case opcodeEQ:
 		regA := int(vm.next8Bits())
 		regB := int(vm.next8Bits())
 		vm.equalFlag = vm.registers[regA] == vm.registers[regB]
 		vm.next8Bits()
 
-	case OPCODE_NEQ:
+	case opcodeNEQ:
 		regA := int(vm.next8Bits())
 		regB := int(vm.next8Bits())
 		vm.equalFlag = vm.registers[regA] != vm.registers[regB]
 		vm.next8Bits()
 
-	case OPCODE_GT:
+	case opcodeGT:
 		regA := int(vm.next8Bits())
 		regB := int(vm.next8Bits())
 		vm.equalFlag = vm.registers[regA] > vm.registers[regB]
 		vm.next8Bits()
 
-	case OPCODE_LT:
+	case opcodeLT:
 		regA := int(vm.next8Bits())
 		regB := int(vm.next8Bits())
 		vm.equalFlag = vm.registers[regA] < vm.registers[regB]
 		vm.next8Bits()
 
-	case OPCODE_GTQ:
+	case opcodeGTQ:
 		regA := int(vm.next8Bits())
 		regB := int(vm.next8Bits())
 		vm.equalFlag = vm.registers[regA] >= vm.registers[regB]
 		vm.next8Bits()
 
-	case OPCODE_LTQ:
+	case opcodeLTQ:
 		regA := int(vm.next8Bits())
 		regB := int(vm.next8Bits())
 		vm.equalFlag = vm.registers[regA] <= vm.registers[regB]
 		vm.next8Bits()
 
-	case OPCODE_JEQ:
+	case opcodeJEQ:
 		target := int(vm.next8Bits())
 
 		if vm.equalFlag {
 			vm.pc = int(vm.registers[target])
 		}
 
-	case OPCODE_JNEQ:
+	case opcodeJNEQ:
 		target := int(vm.next8Bits())
 
 		if !vm.equalFlag {

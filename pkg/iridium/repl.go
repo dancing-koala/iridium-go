@@ -9,10 +9,10 @@ import (
 )
 
 const (
-	CMD_QUIT      = ".quit"
-	CMD_HISTORY   = ".history"
-	CMD_PROGRAM   = ".program"
-	CMD_REGISTERS = ".registers"
+	cmdQuit      = ".quit"
+	cmdHistory   = ".history"
+	cmdProgram   = ".program"
+	cmdRegisters = ".registers"
 )
 
 type REPL struct {
@@ -51,16 +51,16 @@ func (repl *REPL) Run() {
 		repl.commandBuffer = append(repl.commandBuffer, input)
 
 		switch input {
-		case CMD_QUIT:
+		case cmdQuit:
 			fmt.Println("Farewell! Have a great day!")
 			return
 
-		case CMD_HISTORY:
+		case cmdHistory:
 			for _, val := range repl.commandBuffer {
 				fmt.Println(val)
 			}
 
-		case CMD_PROGRAM:
+		case cmdProgram:
 			fmt.Println("Listing instructions currently in VM's program slice:")
 
 			for _, val := range repl.vm.program {
@@ -69,7 +69,7 @@ func (repl *REPL) Run() {
 
 			fmt.Println("End of program listing")
 
-		case CMD_REGISTERS:
+		case cmdRegisters:
 			fmt.Println("Listing registers and all contents:")
 			fmt.Println(repl.vm.registers)
 			fmt.Println("End of registers listing")

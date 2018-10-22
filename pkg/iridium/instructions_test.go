@@ -5,9 +5,9 @@ import (
 )
 
 func TestNewInstruction(t *testing.T) {
-	instr := NewInstruction(OPCODE_HLT)
+	instr := NewInstruction(opcodeHLT)
 
-	if instr.opcode != OPCODE_HLT {
-		t.Errorf("expected opcode <%d>, got <%d>", OPCODE_HLT, instr.opcode)
+	if instr.opcode != opcodeHLT {
+		t.Errorf("expected opcode <%d>, got <%d>", opcodeHLT, instr.opcode)
 	}
 }

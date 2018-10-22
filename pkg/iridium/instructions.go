@@ -3,24 +3,24 @@ package iridium
 type Opcode uint8
 
 const (
-	OPCODE_HLT  Opcode = 0
-	OPCODE_LOAD Opcode = 1
-	OPCODE_ADD  Opcode = 2
-	OPCODE_SUB  Opcode = 3
-	OPCODE_MUL  Opcode = 4
-	OPCODE_DIV  Opcode = 5
-	OPCODE_JMP  Opcode = 6
-	OPCODE_JMPF Opcode = 7
-	OPCODE_JMPB Opcode = 8
-	OPCODE_EQ   Opcode = 9
-	OPCODE_NEQ  Opcode = 10
-	OPCODE_GT   Opcode = 11
-	OPCODE_LT   Opcode = 12
-	OPCODE_GTQ  Opcode = 13
-	OPCODE_LTQ  Opcode = 14
-	OPCODE_JEQ  Opcode = 15
-	OPCODE_JNEQ Opcode = 16
-	OPCODE_IGL  Opcode = 255
+	opcodeHLT  Opcode = 0
+	opcodeLOAD Opcode = 1
+	opcodeADD  Opcode = 2
+	opcodeSUB  Opcode = 3
+	opcodeMUL  Opcode = 4
+	opcodeDIV  Opcode = 5
+	opcodeJMP  Opcode = 6
+	opcodeJMPF Opcode = 7
+	opcodeJMPB Opcode = 8
+	opcodeEQ   Opcode = 9
+	opcodeNEQ  Opcode = 10
+	opcodeGT   Opcode = 11
+	opcodeLT   Opcode = 12
+	opcodeGTQ  Opcode = 13
+	opcodeLTQ  Opcode = 14
+	opcodeJEQ  Opcode = 15
+	opcodeJNEQ Opcode = 16
+	opcodeIGL  Opcode = 255
 )
 
 type Instruction struct {
