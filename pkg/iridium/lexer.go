@@ -1,7 +1,9 @@
 package iridium
 
 import (
+	"errors"
 	"fmt"
+	"strconv"
 
 	"github.com/bbuck/go-lexer"
 )
@@ -107,4 +109,72 @@ func isRegisterSymbol(r rune) bool {
 
 func isIntOperandSymbol(r rune) bool {
 	return r == '#'
+}
+
+func convertValue(t *lexer.Token) (interface{}, error) {
+
+	switch t.Type {
+	case opcodeToken:
+		return strToOpcode(t.Value)
+	case registerToken:
+		return strToUint8(t.Value)
+
+	case intOperandToken:
+		return strToInt32(t.Value)
+	}
+
+	return nil, fmt.Errorf("Unknown token type: %+v", t)
+}
+
+func strToOpcode(val string) (Opcode, error) {
+	switch val {
+	case "HLT":
+		return opcodeHLT, nil
+	case "LOAD":
+		return opcodeLOAD, nil
+	case "ADD":
+		return opcodeADD, nil
+	case "SUB":
+		return opcodeSUB, nil
+	case "MUL":
+		return opcodeMUL, nil
+	case "DIV":
+		return opcodeDIV, nil
+	case "JMP":
+		return opcodeJMP, nil
+	case "JMPF":
+		return opcodeJMPF, nil
+	case "JMPB":
+		return opcodeJMPB, nil
+	case "EQ":
+		return opcodeEQ, nil
+	case "NEQ":
+		return opcodeNEQ, nil
+	case "GT":
+		return opcodeGT, nil
+	case "LT":
+		return opcodeLT, nil
+	case "GTQ":
+		return opcodeGTQ, nil
+	case "LTQ":
+		return opcodeLTQ, nil
+	case "JEQ":
+		return opcodeJEQ, nil
+	case "JNEQ":
+		return opcodeJNEQ, nil
+	case "IGL":
+		return opcodeIGL, nil
+	}
+
+	return 0, errors.New("Unknown opcode: " + val)
+}
+
+func strToUint8(val string) (uint8, error) {
+	result, err := strconv.ParseUint(val, 10, 8)
+	return uint8(result), err
+}
+
+func strToInt32(val string) (int32, error) {
+	result, err := strconv.ParseInt(val, 10, 32)
+	return int32(result), err
 }
