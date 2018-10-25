@@ -7,7 +7,7 @@ import (
 	"github.com/bbuck/go-lexer"
 )
 
-func TestLex_whitespace(t *testing.T) {
+func TestLexer_whitespace(t *testing.T) {
 	src := " \n \t \r  \n "
 	expectedLen := 0
 
@@ -31,7 +31,7 @@ func TestLex_whitespace(t *testing.T) {
 	}
 }
 
-func TestLex_opcodeToken(t *testing.T) {
+func TestLexer_opcodeToken(t *testing.T) {
 	src := "ABC  COUCOU \n\tHIBOU   \r  HI\nBOU "
 	expected := []*lexer.Token{
 		newToken(opcodeToken, "ABC"),
@@ -44,7 +44,84 @@ func TestLex_opcodeToken(t *testing.T) {
 	l := lexer.New(src, opcodeState)
 	l.StartSync()
 
-	actual := make([]*lexer.Token, 0, len(expected))
+	actual := getTokens(l, len(expected))
+
+	assertTokens(t, expected, actual)
+}
+
+func TestLexer_registerToken(t *testing.T) {
+	src := "$1  $234 \n\t$45\r \t $098 \n\n$9847\t"
+	expected := []*lexer.Token{
+		newToken(registerToken, "1"),
+		newToken(registerToken, "234"),
+		newToken(registerToken, "45"),
+		newToken(registerToken, "098"),
+		newToken(registerToken, "9847"),
+	}
+
+	l := lexer.New(src, registerState)
+	l.StartSync()
+
+	actual := getTokens(l, len(expected))
+
+	assertTokens(t, expected, actual)
+}
+
+func TestLexer_intOperandToken(t *testing.T) {
+	src := "#23 \t\n\t #987 \t  \r#007 \n\n\t #378 #123456 \n"
+	expected := []*lexer.Token{
+		newToken(intOperandToken, "23"),
+		newToken(intOperandToken, "987"),
+		newToken(intOperandToken, "007"),
+		newToken(intOperandToken, "378"),
+		newToken(intOperandToken, "123456"),
+	}
+
+	l := lexer.New(src, intOperandState)
+	l.StartSync()
+
+	actual := getTokens(l, len(expected))
+
+	assertTokens(t, expected, actual)
+}
+
+func TestLexer_mixedTokens(t *testing.T) {
+	src := "LOAD $1 #404\nADD $1 $2 $3\n\tJMPF #22\r\t\nJMPB #23 DIV $1 $2 $3"
+	expected := []*lexer.Token{
+		newToken(opcodeToken, "LOAD"),
+		newToken(registerToken, "1"),
+		newToken(intOperandToken, "404"),
+		newToken(opcodeToken, "ADD"),
+		newToken(registerToken, "1"),
+		newToken(registerToken, "2"),
+		newToken(registerToken, "3"),
+		newToken(opcodeToken, "JMPF"),
+		newToken(intOperandToken, "22"),
+		newToken(opcodeToken, "JMPB"),
+		newToken(intOperandToken, "23"),
+		newToken(opcodeToken, "DIV"),
+		newToken(registerToken, "1"),
+		newToken(registerToken, "2"),
+		newToken(registerToken, "3"),
+	}
+
+	l := lexer.New(src, opcodeState)
+	l.StartSync()
+
+	actual := getTokens(l, len(expected))
+
+	assertTokens(t, expected, actual)
+}
+
+func newToken(t lexer.TokenType, value string) *lexer.Token {
+	return &lexer.Token{
+		Type:  t,
+		Value: value,
+	}
+}
+
+func getTokens(l *lexer.L, initialCap int) []*lexer.Token {
+	result := make([]*lexer.Token, 0, initialCap)
 
 	for {
 		item, done := l.NextToken()
@@ -53,21 +130,18 @@ func TestLex_opcodeToken(t *testing.T) {
 			break
 		}
 
-		actual = append(actual, item)
+		result = append(result, item)
 	}
 
+	return result
+}
+
+func assertTokens(t *testing.T, expected, actual []*lexer.Token) {
 	if !assertIntMsg(t, "Comparing length", len(expected), len(actual)) {
 		return
 	}
 
 	for i := range actual {
 		assertTokenMsg(t, fmt.Sprintf("Comparing tokens at index <%d>", i), expected[i], actual[i])
-	}
-}
-
-func newToken(t lexer.TokenType, value string) *lexer.Token {
-	return &lexer.Token{
-		Type:  t,
-		Value: value,
 	}
 }
