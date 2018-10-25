@@ -17,3 +17,5 @@ A go implementation of the iridium VM following [these blog posts](https://blog.
 ✓ [Part 06 - The REPL](https://blog.subnetzero.io/post/building-language-vm-part-06/)
 
 ✓ [Part 07 - REPL and Code Execution](https://blog.subnetzero.io/post/building-language-vm-part-07/)
+
+✓ [Part 08 - Assembler: The Beginning](https://blog.subnetzero.io/post/building-language-vm-part-08/)
