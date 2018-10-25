@@ -145,3 +145,25 @@ func assertTokens(t *testing.T, expected, actual []*lexer.Token) {
 		assertTokenMsg(t, fmt.Sprintf("Comparing tokens at index <%d>", i), expected[i], actual[i])
 	}
 }
+
+func TestStrToUint8(t *testing.T) {
+	vals := []string{"128", "0", "255", "32", "33", "21", "1"}
+	expected := []uint8{128, 0, 255, 32, 33, 21, 1}
+
+	for i := 0; i < len(vals); i++ {
+		actual, err := strToUint8(vals[i])
+		assertNilMsg(t, fmt.Sprintf("Checking err at index <%d>", i), err)
+		assertUint8Msg(t, fmt.Sprintf("Comparing values at index <%d>", i), expected[i], actual)
+	}
+}
+
+func TestStrToInt32(t *testing.T) {
+	vals := []string{"-12822", "404", "255012", "-31112", "323", "21", "1"}
+	expected := []int32{-12822, 404, 255012, -31112, 323, 21, 1}
+
+	for i := 0; i < len(vals); i++ {
+		actual, err := strToInt32(vals[i])
+		assertNilMsg(t, fmt.Sprintf("Checking err at index <%d>", i), err)
+		assertInt32Msg(t, fmt.Sprintf("Comparing values at index <%d>", i), expected[i], actual)
+	}
+}

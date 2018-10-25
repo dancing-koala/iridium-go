@@ -11,4 +11,7 @@ bench:
 	$(GOTEST) -v -bench=. ./pkg/...
 
 test_lexer:
-	$(GOTEST) -v ./pkg/iridium/assert.go ./pkg/iridium/lexer.go ./pkg/iridium/lexer_test.go
+	$(GOTEST) -v ./pkg/iridium/assert.go \
+	./pkg/iridium/instructions.go \
+	./pkg/iridium/lexer.go \
+	./pkg/iridium/lexer_test.go
